@@ -28,6 +28,7 @@ public class JobData {
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
+    // this function is first called on Tech Jobs  on line 47 this calls the loadData method on line 91
     public static ArrayList<String> findAll(String field) {
 
         // load data, if not already loaded
@@ -69,7 +70,7 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
-
+        // after loadData() is run the following code populates the data in to alljobs and returns jobs (which is all jobs)
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
@@ -87,22 +88,33 @@ public class JobData {
     /**
      * Read in data from a CSV file and store it in a list
      */
+    // called on line 35 this function looks to see if the isDataLoaded is true if so then kick out of here otherwise
+
     private static void loadData() {
 
         // Only load data once
         if (isDataLoaded) {
             return;
         }
-
+        // the try opens the CSV file, parses the data what is try?  why not just make a regular method??
         try {
 
             // Open the CSV file and set up pull out column header info and records
             Reader in = new FileReader(DATA_FILE);
+            // pulls the fist line as a header row using the .withFirstRecordAsHeader built in method
             CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
+            // gets the records?? not exactly sure how this works???
+            // from commons.apache.org List<CVSRecord> is a method designed to parse the CSV input according to the given format and returns the content ats a list of CSV records
+            // what is records at this point?? how can i see it?
             List<CSVRecord> records = parser.getRecords();
+            //a variable called numberOfColumns records is a list on 107 What is the chain .get and .size do???
+            // records is a list created on 109 and .get() and.size() is used like .length to create the number of columns needed
             Integer numberOfColumns = records.get(0).size();
+            // declaring the header variables to make a new heads of columns and set it to number of Columns??- setting number of columns is set by the work on line 112.
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
 
+            //creation of new array list called all jobs
+            // what is this right now? how can I see it?? it should be nothing but an empty arraylist
             allJobs = new ArrayList<>();
 
             // Put the records into a more friendly format
@@ -123,6 +135,7 @@ public class JobData {
             System.out.println("Failed to load job data");
             e.printStackTrace();
         }
+
     }
 
 }

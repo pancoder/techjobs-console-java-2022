@@ -8,9 +8,9 @@ import java.util.Scanner;
  * Created by LaunchCode
  */
 public class TechJobs {
-
+// allows for user input
     private static Scanner in = new Scanner(System.in);
-
+// this is the main function that sets a hashmap called columnChoices then enters key value pairs with the value = to the string of its thing
     public static void main (String[] args) {
 
         // Initialize our field map with key/name pairs
@@ -20,27 +20,30 @@ public class TechJobs {
         columnChoices.put("location", "Location");
         columnChoices.put("position type", "Position Type");
         columnChoices.put("all", "All");
-
+// This part makes a new hashmap called actionChoices that has key value pair with search and list
         // Top-level menu options
         HashMap<String, String> actionChoices = new HashMap<>();
         actionChoices.put("search", "Search");
         actionChoices.put("list", "List");
 
         System.out.println("Welcome to LaunchCode's TechJobs App!");
+        // I ran a println to see what these Hashmaps currently contain
+//        System.out.println(columnChoices);
+//        System.out.println(actionChoices);
 
         // Allow the user to search until they manually quit
         while (true) {
-
+            // this presents choices for the user based on the actionChoice HashMap
             String actionChoice = getUserSelection("View jobs by:", actionChoices);
 
             if (actionChoice.equals("list")) {
 
                 String columnChoice = getUserSelection("List", columnChoices);
-
+                // these are direction for how to print out based on the user choices
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
                 } else {
-
+                    // here it goes in to the JobData file and runs the find all method passing in columnChoice
                     ArrayList<String> results = JobData.findAll(columnChoice);
 
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
