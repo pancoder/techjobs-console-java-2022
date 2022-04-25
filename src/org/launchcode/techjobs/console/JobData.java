@@ -35,7 +35,7 @@ public class JobData {
         loadData();
 
         ArrayList<String> values = new ArrayList<>();
-
+    // called from TechJobs line 48 , when user chooses to see all jobs column choice is passed in as field(the catagories of the jobs)
         for (HashMap<String, String> row : allJobs) {
             String aValue = row.get(field);
 

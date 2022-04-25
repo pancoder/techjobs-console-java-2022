@@ -14,6 +14,7 @@ public class TechJobs {
     public static void main (String[] args) {
 
         // Initialize our field map with key/name pairs
+
         HashMap<String, String> columnChoices = new HashMap<>();
         columnChoices.put("core competency", "Skill");
         columnChoices.put("employer", "Employer");
@@ -27,7 +28,7 @@ public class TechJobs {
         actionChoices.put("list", "List");
 
         System.out.println("Welcome to LaunchCode's TechJobs App!");
-        // I ran a println to see what these Hashmaps currently contain
+        // I ran a println to see what these Hashmaps currently contains. it contains all the  choices for the user
 //        System.out.println(columnChoices);
 //        System.out.println(actionChoices);
 
@@ -39,11 +40,12 @@ public class TechJobs {
             if (actionChoice.equals("list")) {
 
                 String columnChoice = getUserSelection("List", columnChoices);
-                // these are direction for how to print out based on the user choices
+                // these are direction based on the user choices
                 if (columnChoice.equals("all")) {
+                    // goes down to line 119 passing in jobs data
                     printJobs(JobData.findAll());
                 } else {
-                    // here it goes in to the JobData file and runs the find all method passing in columnChoice
+                    // here it goes into the JobData file and runs the find all method passing in columnChoice the result is an arraylist of strings that is a list of just one specific column...
                     ArrayList<String> results = JobData.findAll(columnChoice);
 
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
@@ -64,7 +66,9 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    System.out.println("*********");
+                    System.out.println();
+                    System.out.println("*********");
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -73,6 +77,8 @@ public class TechJobs {
     }
 
     // ﻿Returns the key of the selected item from the choices Dictionary
+    //HashMap with String keys and String values. How is this used? used to determine the size of choice keys
+    //What will this HashMap contain when the method runs? either the action choices, or column choices
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
         Integer choiceIdx;
@@ -112,8 +118,22 @@ public class TechJobs {
     }
 
     // Print a list of jobs
+    //
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+        if (someJobs.size() < 1){
+            System.out.println("No Results");
+        }else{
+            for (int j= 0; j < someJobs.size(); j++) {
+                System.out.println("\n*****");
+                for (int i =0; i< someJobs.get(j).keySet().size(); i++){
+                    Object keys = someJobs.get(j).keySet().toArray()[i];
+                    Object values = someJobs.get(j).values().toArray()[i];
+
+                    System.out.println(keys + ": " + values);
+                }
+                System.out.println("*****");
+            }
+        }
     }
 }
