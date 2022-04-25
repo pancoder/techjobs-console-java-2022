@@ -66,6 +66,26 @@ public class JobData {
      * @param value Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
+    // part 2 : make a findByValue method
+    public static ArrayList<HashMap<String, String>> findByValue(String value){
+        // load data, if not already loaded
+        loadData();
+        // after loadData() is run the following code populates the data in to alljobs and returns jobs (which is all jobs)
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs){
+            for (String key : row.keySet()){
+                String aValue = row.get(key);
+                if (aValue.toLowerCase().contains(value.toLowerCase())){
+                    jobs.add(row);
+                    break;
+                }
+
+            }
+        }
+
+        return jobs;
+    }
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
 
         // load data, if not already loaded

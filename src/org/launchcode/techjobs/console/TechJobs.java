@@ -35,9 +35,12 @@ public class TechJobs {
         // Allow the user to search until they manually quit
         while (true) {
             // this presents choices for the user based on the actionChoice HashMap
-            String actionChoice = getUserSelection("View jobs by:", actionChoices);
-
-            if (actionChoice.equals("list")) {
+            // added (type 'x' to quit)in line below
+            String actionChoice = getUserSelection("View jobs by (type 'x' to quit):", actionChoices);
+            // added to enable user to break out of the loop
+            if (actionChoice == null){
+                break;
+            }else if (actionChoice.equals("list")) {
 
                 String columnChoice = getUserSelection("List", columnChoices);
                 // these are direction based on the user choices
@@ -66,9 +69,8 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("*********");
-                    System.out.println();
-                    System.out.println("*********");
+                  // called print jobs find by value here
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -101,7 +103,17 @@ public class TechJobs {
             for (Integer j = 0; j < choiceKeys.length; j++) {
                 System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
-
+//            // added to deal with the user option to quit
+//            if (in.hasNextInt()) {
+//                choiceIdx = in.nextInt();
+//                in.nextLine();
+//            } else {
+//                String line = in.nextLine();
+//                boolean shouldQuit = line.equals("x");
+//                if (shouldQuit) {
+//                    return null;
+//                }
+//            }
             choiceIdx = in.nextInt();
             in.nextLine();
 
